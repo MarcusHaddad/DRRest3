@@ -13,6 +13,7 @@ namespace DRRest3.Controllers
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
+            hej;
         }
 
         // GET api/<MusicRecordsController>/5
