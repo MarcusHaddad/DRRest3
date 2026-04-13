@@ -1,19 +1,56 @@
-﻿namespace DRRest3.Models
+using DRRest3.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace DRRest3.Models
 {
     public class MusicRecordsRepository
     {
-        private static List<MusicRecord> _musicRecords = new List<MusicRecord>();
-        
-        private static int _nextId = 1;
+        private readonly MusicRecordContext _context;
+
+        public MusicRecordsRepository(MusicRecordContext context)
+        {
+            _context = context;
+        }
+
         public List<MusicRecord> GetAll()
         {
-            return new List<MusicRecord>(_musicRecords);
+            return _context.MusicRecords.ToList();
         }
-        public MusicRecord? GetByTitle(string Title)
+
+        public MusicRecord? GetById(int id)
         {
-            return _musicRecords.FirstOrDefault(m => m.Title == Title);
+            return _context.MusicRecords.Find(id);
         }
 
+        public MusicRecord Create(MusicRecord record)
+        {
+            _context.MusicRecords.Add(record);
+            _context.SaveChanges();
+            return record;
+        }
 
+        public MusicRecord? Update(int id, MusicRecord updated)
+        {
+            var existing = _context.MusicRecords.Find(id);
+            if (existing == null) return null;
+
+            existing.Title = updated.Title;
+            existing.Artist = updated.Artist;
+            existing.Duration = updated.Duration;
+            existing.Year = updated.Year;
+
+            _context.SaveChanges();
+            return existing;
+        }
+
+        public bool Delete(int id)
+        {
+            var record = _context.MusicRecords.Find(id);
+            if (record == null) return false;
+
+            _context.MusicRecords.Remove(record);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

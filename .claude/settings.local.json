@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet add:*)",
+      "Bash(powershell -Command \"Set-Location ''C:\\\\Users\\\\marcu\\\\OneDrive\\\\Skrivebord\\\\WebApplication DR\\\\DRRest3\\\\DRRest3''; dotnet add package Microsoft.EntityFrameworkCore.Sqlite; dotnet add package Microsoft.EntityFrameworkCore.Design\")",
+      "Bash(powershell -Command \"Set-Location ''C:\\\\Users\\\\marcu\\\\OneDrive\\\\Skrivebord\\\\WebApplication DR\\\\DRRest3\\\\DRRest3''; dotnet add package Microsoft.EntityFrameworkCore.Sqlite 2>&1\")",
+      "Bash(dotnet --version)"
+    ]
+  }
+}
