@@ -1,0 +1,6 @@
+@DRRest3_HostAddress = http://localhost:5081
+
+GET {{DRRest3_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
