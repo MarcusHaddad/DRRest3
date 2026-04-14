@@ -1,4 +1,5 @@
 using DRRest3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DRRest3.Controllers
@@ -14,11 +15,11 @@ namespace DRRest3.Controllers
             _repository = repository;
         }
 
-        // GET: api/musicrecords
+        // GET: api/musicrecords?title=...&artist=...
         [HttpGet]
-        public ActionResult<IEnumerable<MusicRecord>> Get()
+        public ActionResult<IEnumerable<MusicRecord>> Get([FromQuery] string? title = null, [FromQuery] string? artist = null)
         {
-            return Ok(_repository.GetAll());
+            return Ok(_repository.GetAll(title, artist));
         }
 
         // GET api/musicrecords/5
@@ -31,6 +32,7 @@ namespace DRRest3.Controllers
         }
 
         // POST api/musicrecords
+        [Authorize]
         [HttpPost]
         public ActionResult<MusicRecord> Post([FromBody] MusicRecord record)
         {
@@ -39,6 +41,7 @@ namespace DRRest3.Controllers
         }
 
         // PUT api/musicrecords/5
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult<MusicRecord> Put(int id, [FromBody] MusicRecord record)
         {
@@ -48,6 +51,7 @@ namespace DRRest3.Controllers
         }
 
         // DELETE api/musicrecords/5
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

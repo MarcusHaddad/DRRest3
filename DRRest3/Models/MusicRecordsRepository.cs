@@ -12,9 +12,17 @@ namespace DRRest3.Models
             _context = context;
         }
 
-        public List<MusicRecord> GetAll()
+        public List<MusicRecord> GetAll(string? title = null, string? artist = null)
         {
-            return _context.MusicRecords.ToList();
+            var query = _context.MusicRecords.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(title))
+                query = query.Where(r => r.Title.Contains(title));
+
+            if (!string.IsNullOrWhiteSpace(artist))
+                query = query.Where(r => r.Artist.Contains(artist));
+
+            return query.ToList();
         }
 
         public MusicRecord? GetById(int id)
